@@ -1,0 +1,23 @@
+.container {
+  width: 300px;
+  height: 300px;
+}
+
+.login-page {
+  height: 100%;
+  width: 100%;
+  background: #607d8b1a;
+}
+
+.field {
+  margin: 5px;
+  width: calc(100% - 10px);
+}
+
+.divider {
+    margin-bottom: 5px;
+}
+
+.message {
+    color: red;
+}

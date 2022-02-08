@@ -1,0 +1,76 @@
+<div class="sign-up-page d-flex align-items-center justify-content-center">
+  <mat-card class="container">
+    <div class="col-12">
+      <mat-card-title class="field">Sign Up</mat-card-title>
+      <mat-divider class="divider"></mat-divider>
+      <mat-card-content>
+        <form [formGroup]="form" class="sign-up-form">
+          <mat-form-field class="row field">
+            <input
+              matInput
+              placeholder="First name"
+              formControlName="firstName"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="row field">
+            <input
+              matInput
+              placeholder="Last name"
+              formControlName="lastName"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="row field">
+            <input
+              matInput
+              type="number"
+              placeholder="Identity card number"
+              formControlName="identityCardNumber"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="row field">
+            <input
+              matInput
+              type="email"
+              placeholder="E-mail"
+              formControlName="email"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="row field">
+            <input
+              matInput
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="row field">
+            <mat-label>Roels</mat-label>
+            <mat-select formControlName="roles" multiple>
+              <mat-option *ngFor="let role of roles" [value]="role">{{
+                role
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button
+            class="row field"
+            mat-raised-button
+            color="primary"
+            (click)="signUp()"
+            [disabled]="!form.valid"
+          >
+            Sigh Up
+          </button>
+          <div *ngIf="form.errors?.['invalid']">
+            {{form.errors?.['invalid']}}
+          </div>
+        </form>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>

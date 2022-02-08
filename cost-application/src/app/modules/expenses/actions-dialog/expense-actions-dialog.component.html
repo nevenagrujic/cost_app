@@ -1,0 +1,73 @@
+<mat-card class="expense-action-dialog">
+  <mat-card-title *ngIf="isEditMode; else addUser">Edit expense</mat-card-title>
+  <ng-template #addUser>
+    <mat-card-title>Add expense</mat-card-title>
+  </ng-template>
+  <mat-card-content>
+    <form [formGroup]="form" class="user-action-form">
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          [matDatepicker]="matDatepicker"
+          datePickerFormat="dd/MM/yyyy"
+          formControlName="date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="matDatepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #matDatepicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput type="time" placeholder="Time" formControlName="time" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Description"
+          formControlName="description"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          type="number"
+          placeholder="Amount"
+          formControlName="amount"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Comment" formControlName="comment" />
+      </mat-form-field>
+
+      <!-- <ng-template > -->
+      <mat-form-field appearance="fill" *ngIf="isAdmin()" class="form-field">
+        <mat-label>Users</mat-label>
+        <mat-select formControlName="userId">
+          <mat-option *ngFor="let user of users$ | async" [value]="user.id"
+            >{{ user.firstName }} {{ user.lastName }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <!-- </ng-template> -->
+
+      <div mat-dialog-actions>
+        <button mat-button (click)="save()" [disabled]="form.invalid">
+          Save
+        </button>
+
+        <button mat-button (click)="close()" id="cancel-button">
+          Close
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <div *ngIf="form.errors?.['invalid']">
+    {{form.errors?.['invalid']}}
+  </div>
+</mat-card>

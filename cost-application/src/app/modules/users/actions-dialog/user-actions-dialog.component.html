@@ -1,0 +1,67 @@
+<mat-card class="user-action-dialog">
+  <mat-card-title *ngIf="isEditMode; else addUser">Edit user</mat-card-title>
+  <ng-template #addUser>
+    <mat-card-title>Add user</mat-card-title>
+  </ng-template>
+  <mat-card-content>
+    <form [formGroup]="form" class="user-action-form">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="First name" formControlName="firstName" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Last name" formControlName="lastName" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          type="number"
+          placeholder="Identity card number"
+          formControlName="identityCardNumber"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          type="email"
+          placeholder="E-mail"
+          formControlName="email"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Roels</mat-label>
+        <mat-select formControlName="roles" multiple>
+          <mat-option *ngFor="let role of roles" [value]="role">{{
+            role
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div mat-dialog-actions>
+        <button mat-button (click)="save()" [disabled]="form.invalid">
+          Save
+        </button>
+
+        <button mat-button (click)="close()" id="cancel-button">
+          Close
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <div *ngIf="form.errors?.['invalid']">
+    {{form.errors?.['invalid']}}
+  </div>
+</mat-card>

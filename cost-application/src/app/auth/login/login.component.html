@@ -1,0 +1,52 @@
+<div class="login-page d-flex align-items-center justify-content-center">
+  <mat-card class="container">
+    <div class="col-12">
+      <mat-card-title class="field">Login</mat-card-title>
+      <mat-divider class="divider"></mat-divider>
+      <mat-card-content>
+        <form class="login-form" [formGroup]="form">
+          <mat-form-field class="row field">
+            <input
+              matInput
+              type="email"
+              placeholder="Email"
+              formControlName="email"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="row field">
+            <input
+              matInput
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+            />
+          </mat-form-field>
+
+          <button
+            class="row field"
+            mat-raised-button
+            color="primary"
+            (click)="login()"
+            [disabled]="!form.valid"
+          >
+            Login
+          </button>
+
+          <button
+            class="row field"
+            mat-raised-button
+            color="primary"
+            (click)="signUp()"
+          >
+            Sign Up
+          </button>
+
+          <div class="field message" *ngIf="form.errors?.['invalid']">
+            {{form.errors?.['invalid']}}
+          </div>
+        </form>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>

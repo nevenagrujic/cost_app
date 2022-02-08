@@ -1,0 +1,95 @@
+<div class="user-container">
+  <div class="user-action-container">
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="add()"
+      *ngIf="isAdmin()"
+      aria-label="Add new user"
+      matTooltip="Add new user"
+      [matTooltipPosition]="'left'"
+      matTooltipHideDelay="500"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="users$ | async" class="w-100">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- First name column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>First name</th>
+      <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+    </ng-container>
+
+    <!-- Last name Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef>Last name</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <!-- Password Column -->
+    <ng-container matColumnDef="password">
+      <th mat-header-cell *matHeaderCellDef>Password</th>
+      <td mat-cell *matCellDef="let element">{{ element.password }}</td>
+    </ng-container>
+
+    <!-- LK Column -->
+    <ng-container matColumnDef="identityCardNumber">
+      <th mat-header-cell *matHeaderCellDef>LK</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.identityCardNumber }}
+      </td>
+    </ng-container>
+
+    <!-- Roles Column -->
+    <ng-container matColumnDef="roles">
+      <th mat-header-cell *matHeaderCellDef>Roles</th>
+      <td mat-cell *matCellDef="let element">{{ element.roles }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-mini-fab
+          color="primary"
+          aria-label="Edit user"
+          *ngIf="isAdminOrLoggedInUser(element)"
+          (click)="update(element)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-mini-fab
+          color="primary"
+          aria-label="Delete user"
+          *ngIf="isAdminOrLoggedInUser(element)"
+          (click)="deleteUser(element.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
