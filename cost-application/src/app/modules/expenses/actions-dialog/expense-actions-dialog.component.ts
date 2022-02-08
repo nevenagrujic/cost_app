@@ -6,7 +6,7 @@ import { Expense } from 'src/app/models/expense.model';
 import { User } from 'src/app/models/user.model';
 import { UserState } from 'src/app/store/reducers/user.reducers';
 import { usersSelector } from 'src/app/store/selector/user.selector';
-import Utils from 'src/app/utlis/utils';
+import Utils from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-expense-actions-dialog',

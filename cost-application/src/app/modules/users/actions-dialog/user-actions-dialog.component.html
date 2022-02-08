@@ -40,7 +40,7 @@
         />
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="form-field">
+      <mat-form-field appearance="fill" class="form-field" *ngIf="!isEditMode">
         <mat-label>Roels</mat-label>
         <mat-select formControlName="roles" multiple>
           <mat-option *ngFor="let role of roles" [value]="role">{{

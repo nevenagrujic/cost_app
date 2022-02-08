@@ -30,18 +30,4 @@ export default class Utils {
     }
     return true;
   }
-
-  public static isLoggedUserEdited(
-    users: Array<User>,
-    loggedInUser: User
-  ): User {
-    if ((users && loggedInUser) != undefined) {
-      for (const user of users) {
-        if (user.id == loggedInUser.id) {
-          return user;
-        }
-      }
-    }
-    return undefined;
-  }
 }

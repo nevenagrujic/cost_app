@@ -35,7 +35,6 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(getAllUsers());
   }
 
   signUp() {

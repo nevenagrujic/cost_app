@@ -6,7 +6,7 @@ import { User } from './models/user.model';
 import { logout } from './store/actions/auth.actions';
 import { getAllExpenses } from './store/actions/expense.actions';
 import { getAllUsers } from './store/actions/user.actions';
-import { isLoggedIn, isLoggedOut, loggedUser } from './store/selector/auth.selector';
+import { isLoggedIn, isLoggedOut } from './store/selector/auth.selector';
 
 @Component({
   selector: 'app-root',
@@ -17,16 +17,15 @@ export class AppComponent implements OnInit {
   title = 'cost-application';
 
   isLoggedIn$: Observable<boolean>;
-  isLoggedIn: boolean;
-
-  loggedUser$: Observable<User>;
   isLoggedOut$: Observable<boolean>;
+
+  isLoggedIn: boolean;
+  loggedUser: User;
 
   constructor(private store: Store<any>, private router: Router) {}
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
-    this.loggedUser$ = this.store.pipe(select(loggedUser));
     this.isLoggedOut$ = this.store.pipe(select(isLoggedOut));
 
     this.isLoggedIn$.pipe().subscribe((isLoggedIn) => {

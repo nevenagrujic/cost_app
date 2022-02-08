@@ -12,7 +12,7 @@ import {
   deleteUser,
   updateUser,
 } from 'src/app/store/actions/user.actions';
-import Utils from 'src/app/utlis/utils';
+import Utils from 'src/app/utils/utils';
 import { login, logout } from 'src/app/store/actions/auth.actions';
 import { Router } from '@angular/router';
 
@@ -50,19 +50,12 @@ export class UsersComponent implements OnInit {
 
     this.users$.pipe().subscribe((users) => {
       let userDelitetd: boolean = false;
-      let loggedUserEdited: User = undefined;
       if (users != undefined && this.loggedUser != undefined) {
         userDelitetd = Utils.isLoggedUserDeleted(users, this.loggedUser.id);
-        loggedUserEdited = Utils.isLoggedUserEdited(users, this.loggedUser);
       }
 
       if (userDelitetd) {
         this.store.dispatch(logout());
-      }
-
-      if (loggedUserEdited != undefined) {
-        this.store.dispatch(login(loggedUserEdited));
-        this.router.navigateByUrl('/users');
       }
     });
   }

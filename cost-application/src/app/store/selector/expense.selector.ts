@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Expense } from 'src/app/models/expense.model';
 import { User } from 'src/app/models/user.model';
-import Utils from 'src/app/utlis/utils';
+import Utils from 'src/app/utils/utils';
 import {
   ExpenseState,
   selectAll,
