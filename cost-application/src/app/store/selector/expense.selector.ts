@@ -43,10 +43,12 @@ export const selectExpenseByUserID = (user: User) =>
 
 export const selectExpensesByUserId = (
   requestedDate: Date,
-  description: string
+  description: string,
+  loggedUser: User
 ) =>
   createSelector(expensesFeatureSelector, (expenses) => {
     const result = [];
+    const isAdmin: boolean = Utils.isAdmin(loggedUser);
     const expensesData = JSON.parse(JSON.stringify(expenses.entities));
     for (const key in expensesData) {
       const expense: Expense = expensesData[key];
@@ -55,19 +57,22 @@ export const selectExpensesByUserId = (
       if (
         (requestedDate && expenseDate && description) != undefined &&
         requestedDate.getDate() === expenseDate.getDate() &&
-        expense.description.includes(description)
+        expense.description.includes(description) &&
+        (isAdmin || expense.userId == loggedUser.id)
       ) {
         result.push(expense);
       } else if (
         description == undefined &&
         (requestedDate && expenseDate) != undefined &&
-        requestedDate.getDate() === expenseDate.getDate()
+        requestedDate.getDate() === expenseDate.getDate() &&
+        (isAdmin || expense.userId == loggedUser.id)
       ) {
         result.push(expense);
       } else if (
         requestedDate == undefined &&
         (expense.description && description) != undefined &&
-        expense.description.includes(description)
+        expense.description.includes(description) &&
+        (isAdmin || expense.userId == loggedUser.id)
       ) {
         result.push(expense);
       }

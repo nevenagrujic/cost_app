@@ -34,7 +34,6 @@ export class UsersComponent implements OnInit {
     'delete',
   ];
   users$ = this.store.pipe(select(usersSelector));
-  private loggedUser: User = null;
 
   constructor(
     private store: Store<any>,
@@ -43,19 +42,20 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loggedUser =
-      localStorage.getItem('user') != undefined
-        ? JSON.parse(localStorage.getItem('user'))
-        : undefined;
-
     this.users$.pipe().subscribe((users) => {
       let userDelitetd: boolean = false;
-      if (users != undefined && this.loggedUser != undefined) {
-        userDelitetd = Utils.isLoggedUserDeleted(users, this.loggedUser.id);
+      const loggedUser: User =
+        localStorage.getItem('user') != undefined
+          ? JSON.parse(localStorage.getItem('user'))
+          : undefined;
+      if (users != undefined && loggedUser != undefined) {
+        userDelitetd = Utils.isLoggedUserDeleted(users, loggedUser.id);
       }
 
       if (userDelitetd) {
         this.store.dispatch(logout());
+        localStorage.removeItem('user');
+        this.router.navigateByUrl('/login');
       }
     });
   }
@@ -111,26 +111,25 @@ export class UsersComponent implements OnInit {
 
   deleteUser(id: number): void {
     this.store.dispatch(deleteUser(id));
-    setTimeout(() => {
-      if (id === this.loggedUser.id) {
-        this.store.dispatch(logout());
-        this.router.navigateByUrl('/login');
-      }
-    }, 2000);
   }
 
   isAdminOrLoggedInUser(user: User): boolean {
+    const loggedUser: User =
+      localStorage.getItem('user') != undefined
+        ? JSON.parse(localStorage.getItem('user'))
+        : undefined;
     return (
-      Utils.isAdmin(this.loggedUser) ||
-      Utils.isLoggedUser(
-        user,
-        this.loggedUser != undefined ? this.loggedUser.id : -1
-      )
+      Utils.isAdmin(loggedUser) ||
+      Utils.isLoggedUser(user, loggedUser != undefined ? loggedUser.id : -1)
     );
   }
 
   isAdmin(): boolean {
-    return Utils.isAdmin(this.loggedUser);
+    const loggedUser: User =
+      localStorage.getItem('user') != undefined
+        ? JSON.parse(localStorage.getItem('user'))
+        : undefined;
+    return Utils.isAdmin(loggedUser);
   }
 
   logout() {}

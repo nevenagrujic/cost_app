@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
       if (isLoggedIn) {
         this.store.dispatch(getAllUsers());
         this.store.dispatch(getAllExpenses());
+        this.loggedUser = JSON.parse(localStorage.getItem('user'));
       }
     });
   }

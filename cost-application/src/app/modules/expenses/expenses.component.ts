@@ -63,13 +63,29 @@ export class ExpensesComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.expenses$ = this.store.pipe(
-      select(selectExpensesByUserId(new Date(), filterValue))
+      select(
+        selectExpensesByUserId(
+          new Date(),
+          filterValue,
+          localStorage.getItem('user') != undefined
+            ? JSON.parse(localStorage.getItem('user'))
+            : undefined
+        )
+      )
     );
   }
 
   filterPerDate(type: string, event: MatDatepickerInputEvent<Date>) {
     this.expenses$ = this.store.pipe(
-      select(selectExpensesByUserId(event.value, undefined))
+      select(
+        selectExpensesByUserId(
+          event.value,
+          undefined,
+          localStorage.getItem('user') != undefined
+            ? JSON.parse(localStorage.getItem('user'))
+            : undefined
+        )
+      )
     );
   }
 
